@@ -1,4 +1,10 @@
+import LiveMatchViewer from './components/Dashboard/LiveMatchViewer';
+import DashboardSummary from './components/Dashboard/DashboardSummary';
+import PlayerRankings from './components/Dashboard/PlayerRankings';
+import KnockoutBracket from './components/Dashboard/KnockoutBracket';
+import TournamentStats from './components/Dashboard/TournamentStats';
 import PointsTable from './components/Dashboard/PointsTable';
+import PlayerRanking from './components/Dashboard/PlayerRanking';
 import TeamDirectory from './components/Dashboard/TeamDirectory';
 import MatchSchedule from './components/Dashboard/MatchSchedule';
 import { LeftSidebar } from './components/Sidebar/LeftSidebar';
@@ -23,15 +29,39 @@ function App() {
 
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-bold">Live Now</h2>
-            <LiveMatches />
           </div>
 
           {/* Match Schedule */}
-          <MatchSchedule />
 
-          <TeamDirectory />
+<LiveMatches />
 
-          <PointsTable />
+<section id="matches">
+  <MatchSchedule />
+</section>
+
+<section id="teams">
+  <TeamDirectory />
+</section>
+
+<section id="standings">
+  <PointsTable />
+</section>
+
+<section id="players">
+  <PlayerRanking />
+</section>
+
+<TournamentStats />
+
+<KnockoutBracket />
+
+<PlayerRankings />
+
+<DashboardSummary />
+
+<section id="live">
+  <LiveMatchViewer />
+</section>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="flex flex-col gap-4">
