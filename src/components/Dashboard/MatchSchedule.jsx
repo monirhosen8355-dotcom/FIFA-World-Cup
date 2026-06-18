@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Trophy } from 'lucide-react';
+import MatchDetailsPage from './MatchDetailsPage';
 
 const MATCHES_DATA = [
   {
@@ -50,6 +51,23 @@ const MATCHES_DATA = [
 ];
 
 const MatchSchedule = () => {
+    const [selectedMatch, setSelectedMatch] = useState(null);
+
+if (selectedMatch) {
+  return (
+    <MatchDetailsPage
+      match={{
+        team1: selectedMatch.homeTeam,
+        team2: selectedMatch.awayTeam,
+        date: selectedMatch.date,
+        time: selectedMatch.time,
+        stadium: selectedMatch.stadium,
+      }}
+      onBack={() => setSelectedMatch(null)}
+      onWatchLive={() => alert('Live Stream Coming Soon')}
+    />
+  );
+}
     console.log("MatchSchedule Loaded");
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
@@ -129,9 +147,12 @@ const MatchSchedule = () => {
                   <MapPin className="w-4 h-4 text-indigo-400" />
                   <span className="text-xs font-bold text-center lg:text-right">{match.stadium}</span>
                 </div>
-                <button className="mt-4 w-full lg:w-auto px-6 py-2 bg-white text-black text-xs font-black uppercase rounded-xl hover:bg-indigo-500 hover:text-white transition-all duration-300">
-                  Match Details
-                </button>
+                <button
+  onClick={() => setSelectedMatch(match)}
+  className="mt-4 w-full lg:w-auto px-6 py-2 bg-white text-black text-xs font-black uppercase rounded-xl hover:bg-indigo-500 hover:text-white transition-all duration-300"
+>
+  Match Details
+</button>
               </div>
 
             </div>

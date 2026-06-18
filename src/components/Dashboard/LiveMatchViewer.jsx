@@ -1,3 +1,4 @@
+import LiveMatchPage from './LiveMatchPage';
 import React, { useState } from 'react';
 import { Play, X, Tv, Calendar, Trophy, Activity, AlertCircle, Clock } from 'lucide-react';
 
@@ -44,9 +45,17 @@ const MATCH_DATA = [
 
 const LiveMatchViewer = () => {
   const [selectedMatch, setSelectedMatch] = useState(null);
+    const [openLivePage, setOpenLivePage] = useState(false);
 
   const StatusBadge = ({ status, minute }) => {
     if (status === "Live") {
+        if (openLivePage) {
+  return (
+    <LiveMatchPage
+      onBack={() => setOpenLivePage(false)}
+    />
+  );
+}
       return (
         <div className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 border border-rose-500/20 rounded-full">
           <span className="w-1.5 h-1.5 bg-rose-500 rounded-full animate-pulse" />
@@ -133,7 +142,13 @@ const LiveMatchViewer = () => {
                 </div>
 
                 <button 
-                  onClick={() => setSelectedMatch(match)}
+                  onClick={() => {
+  if (match.status === "Live") {
+    setOpenLivePage(true);
+  } else {
+    setSelectedMatch(match);
+  }
+}}
                   className="w-full flex items-center justify-center gap-3 py-4 bg-indigo-600 hover:bg-indigo-500 rounded-2xl transition-all duration-300 group/btn"
                 >
                   <Play size={18} className="fill-white group-hover/btn:scale-110 transition-transform" />
